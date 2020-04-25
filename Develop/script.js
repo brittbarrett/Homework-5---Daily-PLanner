@@ -1,50 +1,115 @@
+// Create Calendar/Planner
 createCal();
 console.log(moment().format("dddd, MMMM Do YYYY h:mm HH"));
-var day = moment().format("dddd, MMMM Do YYYY h:mm HH");
-console.log(day);
-var currhour = parseInt(day.split(" ")[4].split(":")[0]);
-console.log("curr hr: " + currhour);
+var currDay = moment().format("dddd, MMMM Do YYYY h:mm HH");
+console.log(currDay);
+var currHour = parseInt(currDay.split(" ")[4].split(":")[0]);
+console.log("Currant hour: " + currHour);
 function createCal() {
   /* <div class="input-group">
             <div class="input-group-prepend">
                  <span class="input-group-text" id="time">Time</span>
             </div>
-            <textarea class="user-input" aria-label="With textarea" id="time-value"></textarea>
+            <textarea class="form-control" aria-label="With textarea" id="time-val"></textarea>
             <div class="input-group-append">
                  <button class="btn btn-outline-secondary" type="button" id="button-addon2 time-btn">Submit</button>
             </div>
         </div>  */
-  var timearr = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+  var timeArray = [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+  ];
 
-  //   Creating divs for the rows of the day planner
+  //   Create elements on page
   for (var i = 0; i < 9; i++) {
-    // first div
     var div1 = $("<div>");
-    div1.attr("class", "input-group");
+    div1.attr("class", "input-group time-block");
+    //<div class="input-group"></div>
 
-    // second div
     var div2 = $("<div>");
-    div2.attr("class", "input-group-prepend");
+    div2.attr("class", "input-group-prepend hour");
+    //<div class="input-group-prepend"></div>
 
-    // span element
     var span = $("<span>");
     span.attr("class", "input-group-text");
+    //<span class="input-group-text" ></span>
     span.attr("id", "time");
+    //<span class="input-group-text" id="time"></span>
 
-    // user input variable
     var textArea = $("<textarea>");
-    textArea.attr("class", "user-input");
+    textArea.attr("class", "form-control row description");
+    //<textarea class="form-control"></textarea>
     textArea.attr("aria-label", "With textarea");
-    textArea.attr("id", "time-value");
+    //<textarea class="form-control" aria-label="With textarea"></textarea>
+    textArea.attr("id", "time-val");
+    //<textarea class="form-control" aria-label="With textarea" id="time-val"></textarea>
 
-    // thiird div
     var div3 = $("<div>");
-    div3.attr("class", "input-group-append");
+    div3.attr("class", "input-group-append").value;
+    //<div class="input-group-append"></div>
 
-    // save button
-    var saveBtn = $("<button>");
-    saveBtn.attr("class", "btn btn-outline-secondary");
-    saveBtn.attr("type", "button");
-    saveBtn.attr("id", "button-addon2 time-btn");
+    var btn = $("<button>");
+    btn.attr("class", "btn btn-outline-secondary saveBtn");
+    btn.attr("type", "button");
+    btn.attr("id", "button-addon2 time-btn");
+    btn.text("Save");
+    //<button class="btn btn-outline-secondary" type="button" id="button-addon2 time-btn">Submit</button>
+
+    // Append divs:
+    div2.append(span);
+
+    div3.append(btn);
+
+    div1.append(div2);
+
+    div1.append(textArea);
+
+    div1.append(div3);
+
+    // AM or PM
+    if (timeArray[i] <= 12) {
+      if (timeArray[i] == 12) {
+        span.text(timeArray[i] + "PM");
+      } else {
+        span.text(timeArray[i] + "AM");
+      }
+    } else {
+      span.text(timeArray[i] - 12 + "PM");
+    }
+    $(".container").append(div1);
+  }
+
+  //   Save button event listener - NOT WORKING
+  $("button").on("click", function () {
+    console.log("click");
+    function saveInput() {
+      localStorage.setItem("input", textArea.val());
+      //   console.log(textArea.val() + "working");
+    }
+  });
+
+  //   Time blocks change depending on current time - NOT WORKING
+  function blockColor() {
+    if (timeArray[i] < currHour) {
+      textArea.addClass("past");
+    } else if (timeArray[i] > currHour) {
+      textArea.addclass("future");
+    } else {
+      textArea.addClass("present");
+    }
   }
 }
