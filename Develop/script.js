@@ -1,10 +1,15 @@
+// Current day in jumbotron
+var displayDay = moment().format("dddd, MMMM D YYYY");
+console.log(displayDay);
+$("#currentDay").append(displayDay);
+
 // Create Calendar/Planner
 createCal();
 console.log(moment().format("dddd, MMMM Do YYYY h:mm HH"));
 var currDay = moment().format("dddd, MMMM Do YYYY h:mm HH");
 console.log(currDay);
 var currHour = parseInt(currDay.split(" ")[4].split(":")[0]);
-console.log("Currant hour: " + currHour);
+console.log("Current hour: " + currHour);
 function createCal() {
   /* <div class="input-group">
             <div class="input-group-prepend">
@@ -55,7 +60,7 @@ function createCal() {
     //<textarea class="form-control"></textarea>
     textArea.attr("aria-label", "With textarea");
     //<textarea class="form-control" aria-label="With textarea"></textarea>
-    textArea.attr("id", "time-val");
+    textArea.attr("id", `${i}`);
     //<textarea class="form-control" aria-label="With textarea" id="time-val"></textarea>
 
     var div3 = $("<div>");
@@ -65,7 +70,8 @@ function createCal() {
     var btn = $("<button>");
     btn.attr("class", "btn btn-outline-secondary saveBtn");
     btn.attr("type", "button");
-    btn.attr("id", "button-addon2 time-btn");
+    btn.attr("id", `${i}`);
+    // btn.attr("id", "userSave");
     btn.text("Save");
     //<button class="btn btn-outline-secondary" type="button" id="button-addon2 time-btn">Submit</button>
 
@@ -92,24 +98,33 @@ function createCal() {
     }
     $(".container").append(div1);
   }
+  console.log(textArea.val() + "working");
+}
 
-  //   Save button event listener - NOT WORKING
-  $("button").on("click", function () {
-    console.log("click");
-    function saveInput() {
-      localStorage.setItem("input", textArea.val());
-      //   console.log(textArea.val() + "working");
-    }
-  });
+//   Save button event listener - WORKING BUT TRYING SOMETHING DIFFERENT
 
-  //   Time blocks change depending on current time - NOT WORKING
-  function blockColor() {
-    if (timeArray[i] < currHour) {
-      textArea.addClass("past");
-    } else if (timeArray[i] > currHour) {
-      textArea.addclass("future");
-    } else {
-      textArea.addClass("present");
-    }
+$("button").on("click", function () {
+  console.log("textarea");
+  localStorage.setItem(
+    "input",
+    JSON.stringify($(this).closest("textarea").val())
+  );
+
+  // var userData = JSON.parse(localStorage.getItem(textarea));
+
+  // first, assign a unique id to the save button because $(this) will only return the save button
+
+  // console.log($(this).attr("id"));
+  // using the unique id find the corrisponding textarea and assign a variable to obtain the value
+});
+
+//   Time blocks change depending on current time - NOT WORKING
+function blockColor() {
+  if (timeArray[i] < currHour) {
+    textArea.addClass("past");
+  } else if (timeArray[i] > currHour) {
+    textArea.addclass("future");
+  } else {
+    textArea.addClass("present");
   }
 }
