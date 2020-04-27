@@ -55,15 +55,18 @@ for (var i = 0; i < 9; i++) {
   //current time currHour, timeArray[i]
   if (currHour == timeArray[i]) {
     textArea.attr("class", "form-control description present");
+    console.log(textArea.attr("class", "form-control description present"));
   }
   //future time
   if (timeArray[i] > currHour) {
     textArea.attr("class", "form-control description future");
+    console.log(textArea.attr("class", "form-control description future"));
   }
 
   // past time
   if (timeArray[i] < currHour) {
     textArea.attr("class", "form-control description past");
+    console.log(textArea.attr("class", "form-control description past"));
   }
 
   //<textarea class="form-control"></textarea>
@@ -111,4 +114,13 @@ $("button").on("click", function () {
 });
 
 $("#9").val(localStorage.getItem("9"));
+$("#10").val(localStorage.getItem("10"));
 $("#11").val(localStorage.getItem("11"));
+$("#12").val(localStorage.getItem("12"));
+$("#13").val(localStorage.getItem("13"));
+$("#14").val(localStorage.getItem("14"));
+$("#15").val(localStorage.getItem("15"));
+$("#16").val(localStorage.getItem("16"));
+$("#17").val(localStorage.getItem("17"));
+
+console.log(timeArray[i] - currHour);
