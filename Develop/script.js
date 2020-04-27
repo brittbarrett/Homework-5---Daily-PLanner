@@ -52,11 +52,24 @@ for (var i = 0; i < 9; i++) {
   span.attr("id", "time");
   //<span class="input-group-text" id="time"></span>
   var textArea = $("<textarea>");
-  textArea.attr("class", "form-control row description past");
+  //current time currHour, timeArray[i]
+  if (currHour == timeArray[i]) {
+    textArea.attr("class", "form-control description present");
+  }
+  //future time
+  if (timeArray[i] > currHour) {
+    textArea.attr("class", "form-control description future");
+  }
+
+  // past time
+  if (timeArray[i] < currHour) {
+    textArea.attr("class", "form-control description past");
+  }
+
   //<textarea class="form-control"></textarea>
   textArea.attr("aria-label", "With textarea");
   //<textarea class="form-control" aria-label="With textarea"></textarea>
-  textArea.attr("id", `${i}`);
+  textArea.attr("id", timeArray[i]);
   //<textarea class="form-control" aria-label="With textarea" id="time-val"></textarea>
   var div3 = $("<div>");
   div3.attr("class", "input-group-append").value;
@@ -64,7 +77,7 @@ for (var i = 0; i < 9; i++) {
   var btn = $("<button>");
   btn.attr("class", "btn btn-outline-secondary saveBtn");
   btn.attr("type", "button");
-  btn.attr("id", `${i}`);
+
   // btn.attr("id", "userSave");
   btn.text("Save");
   //<button class="btn btn-outline-secondary" type="button" id="button-addon2 time-btn">Submit</button>
@@ -91,15 +104,11 @@ console.log(textArea.val() + "working");
 $("button").on("click", function () {
   var info = $(this).parent("div").prev().val();
   console.log(info);
-  localStorage.setItem("userArray", JSON.stringify(userArray));
-  console.log($(this).val);
+  console.log($(this).parent("div").prev().attr("id"));
+  //localStorage.setItem(hour, userinput);
+  localStorage.setItem($(this).parent("div").prev().attr("id"), info);
+  //console.log($(this).val);
 });
-//   Time blocks change depending on current time - NOT WORKING
-function futureBlockColor() {
-  var futureTime = currHour + 1;
-  //   var futureColor = $("textarea").css("background-color", "green")
-  if (futureTime > currHour) {
-    $("textarea").removeClass("past").addClass("future");
-  }
-}
-futureBlockColor();
+
+$("#9").val(localStorage.getItem("9"));
+$("#11").val(localStorage.getItem("11"));
