@@ -6,7 +6,7 @@ $("#currentDay").append(displayDay);
 console.log(moment().format("dddd, MMMM Do YYYY h:mm HH"));
 var currDay = moment().format("dddd, MMMM Do YYYY h:mm HH");
 console.log(currDay);
-var currHour = parseInt(currDay.split(" ")[4].split(":")[0]);
+var currHour = moment().format("HH"); // parseInt(currDay.split(" ")[4].split(":")[0]);
 console.log("Current hour: " + currHour);
 // add color
 // adding ids to the buttons so they can be stored
@@ -30,14 +30,8 @@ var timeArray = [
   "23",
   "24",
 ];
-var userArray = ["", "", "", "", "", "", "", "", ""];
-var getList = localStorage.getItem(userArray);
-if (getList !== null) {
-  JSON.parse(getList);
-}
-// function saveData () {
-//     localStorage.setItem('userArry', userArray);
-// }
+
+//
 //   Create elements on page
 for (var i = 0; i < 9; i++) {
   var div1 = $("<div>");
@@ -52,21 +46,29 @@ for (var i = 0; i < 9; i++) {
   span.attr("id", "time");
   //<span class="input-group-text" id="time"></span>
   var textArea = $("<textarea>");
+  // past time
+  console.log("currenthour" + currHour);
+  console.log("time" + timeArray[i]);
+  console.log(timeArray[i] - currHour);
+
+  if (timeArray[i] - currHour < 0) {
+    console.log("inside past");
+    textArea.attr("class", "form-control description past");
+    // console.log(textArea.attr("class", "form-control description past"));
+  }
   //current time currHour, timeArray[i]
+  console.log("present");
+  console.log(currHour == timeArray[i]);
   if (currHour == timeArray[i]) {
     textArea.attr("class", "form-control description present");
-    console.log(textArea.attr("class", "form-control description present"));
+    //console.log(textArea.attr("class", "form-control description present"));
   }
   //future time
+  console.log("future");
+  console.log(timeArray[i] > currHour);
   if (timeArray[i] > currHour) {
     textArea.attr("class", "form-control description future");
-    console.log(textArea.attr("class", "form-control description future"));
-  }
-
-  // past time
-  if (timeArray[i] < currHour) {
-    textArea.attr("class", "form-control description past");
-    console.log(textArea.attr("class", "form-control description past"));
+    //console.log(textArea.attr("class", "form-control description future"));
   }
 
   //<textarea class="form-control"></textarea>
