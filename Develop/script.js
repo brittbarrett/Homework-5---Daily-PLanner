@@ -5,9 +5,12 @@ $("#currentDay").append(displayDay);
 // Create Calendar/Planner
 console.log(moment().format("dddd, MMMM Do YYYY h:mm HH"));
 var currDay = moment().format("dddd, MMMM Do YYYY h:mm HH");
-console.log(currDay);
-var currHour = moment().format("HH"); // parseInt(currDay.split(" ")[4].split(":")[0]);
-console.log("Current hour: " + currHour);
+
+// console.log(currDay);
+var currHour = parseInt(moment().format("HH")); // parseInt(currDay.split(" ")[4].split(":")[0]);
+
+// console.log(typeof currHour);
+// console.log("Current hour: " + currHour);
 // add color
 // adding ids to the buttons so they can be stored
 // then add the empty array for user input and push the id value of the text field into the empty array
@@ -47,27 +50,32 @@ for (var i = 0; i < 9; i++) {
   //<span class="input-group-text" id="time"></span>
   var textArea = $("<textarea>");
   // past time
-  console.log("currenthour" + currHour);
-  console.log("time" + timeArray[i]);
-  console.log(timeArray[i] - currHour);
+  // console.log("currenthour" + currHour);
+  // console.log("time" + timeArray[i]);
+  // pass one - time will be 9
+  // pass one - curr hour = 21
+  // console.log(timeArray[i] - currHour);
+  // -12
 
   if (timeArray[i] - currHour < 0) {
-    console.log("inside past");
+    // console.log("inside past");
     textArea.attr("class", "form-control description past");
     // console.log(textArea.attr("class", "form-control description past"));
   }
   //current time currHour, timeArray[i]
-  console.log("present");
-  console.log(currHour == timeArray[i]);
+  // console.log("present");
+  // console.log(currHour == timeArray[i]);
   if (currHour == timeArray[i]) {
     textArea.attr("class", "form-control description present");
     //console.log(textArea.attr("class", "form-control description present"));
   }
   //future time
-  console.log("future");
-  console.log(timeArray[i] > currHour);
+  // console.log("future");
+  // console.log(timeArray[i] > currHour);
+
   if (timeArray[i] > currHour) {
     textArea.attr("class", "form-control description future");
+    // console.log(timeArray[i], "inside future block", typeof currHour);
     //console.log(textArea.attr("class", "form-control description future"));
   }
 
@@ -104,12 +112,12 @@ for (var i = 0; i < 9; i++) {
   }
   $(".container").append(div1);
 }
-console.log(textArea.val() + "working");
+// console.log(textArea.val() + "working");
 //   Save button event listener - WORKING BUT TRYING SOMETHING DIFFERENT
 $("button").on("click", function () {
   var info = $(this).parent("div").prev().val();
-  console.log(info);
-  console.log($(this).parent("div").prev().attr("id"));
+  // console.log(info);
+  // console.log($(this).parent("div").prev().attr("id"));
   //localStorage.setItem(hour, userinput);
   localStorage.setItem($(this).parent("div").prev().attr("id"), info);
   //console.log($(this).val);
@@ -125,4 +133,4 @@ $("#15").val(localStorage.getItem("15"));
 $("#16").val(localStorage.getItem("16"));
 $("#17").val(localStorage.getItem("17"));
 
-console.log(timeArray[i] - currHour);
+// console.log(timeArray[i] - currHour);
