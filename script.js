@@ -1,7 +1,9 @@
 // Current day in jumbotron
-var displayDay = moment().format("dddd, MMMM D YYYY");
+var displayDay = moment().format("dddd");
+var displayDate = moment().format("MMMM D, YYYY");
 console.log(displayDay);
 $("#currentDay").append(displayDay);
+$("#currentDate").append(displayDate);
 // Create Calendar/Planner
 console.log(moment().format("dddd, MMMM Do YYYY h:mm HH"));
 var currDay = moment().format("dddd, MMMM Do YYYY h:mm HH");
